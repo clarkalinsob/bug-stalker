@@ -4,7 +4,7 @@ Bug Tracking System
 
 ## Getting Started
 
-Bug Stalker App is a tool to help a development team to list and track bugs.
+Bug Stalker App is a tool to help a Development Team to list and track bugs.
 
 ### Tech Used
 
