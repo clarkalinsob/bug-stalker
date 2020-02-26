@@ -19,6 +19,7 @@ app.get('/api', (req, res) => {
 })
 
 app.use('/api/v1/projects', projectsRoute)
+app.use('/api/v1/bugs', bugsRoute)
 
 mongoose
   .connect(process.env.MONGODB_ATLAS, { useNewUrlParser: true, useUnifiedTopology: true })

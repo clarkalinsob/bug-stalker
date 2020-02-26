@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const Project = require('../models/Project')
+const Bug = require('../models/Bug')
 
 router.use('/', (req, res, next) => next())
 
 // GET *READ* Multiple Projects
 
 router.get('/', async (req, res) => {
-  const projects = await Project.find({})
+  const projects = await Project.find()
 
-  if (projects.length < 1) res.sendStatus(404)
+  if (projects.length < 1) return res.sendStatus(404)
 
   res.send(projects)
 })
@@ -37,6 +38,7 @@ router.post('/', async (req, res) => {
     Object.keys(req.body).forEach(key => (project[key] = req.body[key]))
 
     const result = await project.save()
+
     res.send(result)
   } catch (e) {
     res.send(e.message)
@@ -54,6 +56,7 @@ router.patch('/:projectId', async (req, res) => {
 
   try {
     Object.keys(req.body).forEach(key => (project[key] = req.body[key]))
+
     const result = await project.save()
 
     res.send(result)
@@ -71,6 +74,7 @@ router.delete('/:projectId', async (req, res) => {
 
   if (!project) return res.sendStatus(404)
 
+  await Bug.deleteMany({ projectId: req.params.projectId })
   await project.remove()
 
   res.sendStatus(200)
