@@ -10,7 +10,7 @@ Bug Stalker App is a tool to help a Development Team to list and track bugs.
 
 MongoDB, Express, Angular, Node.js, Auth0  
 
-### Prerequisites `
+### Prerequisites
 
 1. Create `.env` file on the `server` root folder and add the following variables.
 ```
