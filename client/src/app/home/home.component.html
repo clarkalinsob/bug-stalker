@@ -1,13 +1,16 @@
-<div>
-  <div class="flex-center flex-column">
-    <h1 class="animated fadeIn mt-5 mb-3">Bug Stalker</h1>
-    <p class="animated fadeIn text-muted mb-5">By Clark Egbert Alinsob</p>
+<div id="page-container">
+  <div id="content-wrap" class="flex-center flex-column">
+    <h1 class="animated fadeIn mt-5 mb-3">
+      <img src="../../assets/img/bug-stalker-logo-brown.png" alt="" width="50">
+      &nbsp;Bug Stalker
+    </h1>
+    <p class="animated fadeIn text-muted mb-4">By Clark Egbert Alinsob</p>
     <div class="container">
         <div class="row">
           <div class="col text-right">
             <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bae20f47-fe9e-4ab7-87c0-c461fc3b9d83/d45iokz-7d795934-805b-4d18-8ea2-9f64b2b649ca.png/v1/fill/w_900,h_852,strp/youmu_konpaku_by_yukirumo990_d45iokz-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODUyIiwicGF0aCI6IlwvZlwvYmFlMjBmNDctZmU5ZS00YWI3LTg3YzAtYzQ2MWZjM2I5ZDgzXC9kNDVpb2t6LTdkNzk1OTM0LTgwNWItNGQxOC04ZWEyLTlmNjRiMmI2NDljYS5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.RPrODH_1xY6-WGnYP9eeMYasdAUTzJrIprQF6X6oesE" alt="" width="250" class="img-fluid z-depth-0">    
           </div>
-          <div class="col pt-4 text-left">
+        <div class="col pt-4 text-left">
             <h5 class="animated fadeIn mb-3">99 little bugs in the code. .</h5>
             <h5 class="animated fadeIn mb-3">99 little bugs in the code. . .</h5>
             <h5 class="animated fadeIn mb-3">Take one down, patch it around.</h5>
@@ -16,11 +19,10 @@
           </div>
         </div>
       </div>
-    <h6 class="animated fadeIn mt-5 mb-3">Start tracking down bugs before it's too late! </h6>
+    <h6 class="animated fadeIn mt-4 mb-4">Start tracking down bugs before it's too late! </h6>
     <button *ngIf="!auth.loggedIn" type="button" mdbBtn color="brown" mdbWavesEffect size="lg" (click)="auth.login()">
         Continue &nbsp;
         <mdb-icon fas icon="arrow-right"></mdb-icon>
     </button>
-    <div id="footer" class="text-center">Copyright @ 2020 Egbert Apps. All Rights Reserved.</div>
   </div>
 </div>

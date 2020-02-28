@@ -1,5 +1,10 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark teal darken-2" [containerInside]="false">
-  <mdb-navbar-brand><a class="navbar-brand" href="#">App Logo</a></mdb-navbar-brand>
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark teal darken-2 sticky-top" [containerInside]="false">
+  <mdb-navbar-brand>
+    <a class="navbar-brand" href="#">
+      <img src="../../assets/img/bug-stalker-logo.png" alt="" width="35">
+      &nbsp; Bug Stalker
+    </a>
+  </mdb-navbar-brand>
   <ul class="navbar-nav ml-auto nav-flex-icons">
     <li *ngIf="auth.loggedIn"  class="nav-item avatar dropdown" dropdown>
       <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light">
