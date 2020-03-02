@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000
 const projectsRoute = require('./routes/projectsRoute')
 const bugsRoute = require('./routes/bugsRoute')
 
-// app.use(cors())
+app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/api', (req, res) => {

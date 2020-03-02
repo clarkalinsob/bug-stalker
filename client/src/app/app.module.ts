@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { EgAppCardComponent } from './eg-app-card/eg-app-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProjectModalComponent } from './project-modal/project-modal.component';
+import { ProjectCardComponent } from './project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NavbarComponent,
     EgAppCardComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectModalComponent,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,8 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
+    component: DashboardComponent
+    // canActivate: [AuthGuard]
   },
   {
     path: 'home',
@@ -29,4 +29,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
