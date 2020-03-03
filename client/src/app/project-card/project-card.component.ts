@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { ProjectService } from '../services/project.service';
+import { Project } from '../models/project'
 
 @Component({
   selector: 'app-project-card',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-card.component.scss']
 })
 export class ProjectCardComponent implements OnInit {
+  @Input() project: Project
+  @Output() deleteProject: EventEmitter<Project> = new EventEmitter()
 
-  constructor() { }
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
+  }
+
+  onDelete(project) {
+    this.deleteProject.emit(project)
   }
 
 }

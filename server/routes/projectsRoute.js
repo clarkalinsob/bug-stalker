@@ -84,9 +84,9 @@ router.delete('/:projectId', async (req, res) => {
   if (!project) return res.sendStatus(404)
 
   await Bug.deleteMany({ projectId: req.params.projectId })
-  await project.remove()
+  await project.deleteOne()
 
-  res.sendStatus(200)
+  res.send()
 })
 
 // *** END

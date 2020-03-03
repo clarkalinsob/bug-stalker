@@ -25,34 +25,11 @@
     </div>
     <div class="col-8">
       <app-project-modal></app-project-modal>
-      <!-- <a class="float-right mr-0" href="#!" mdbBtn color="blue">
-        <mdb-icon fas icon="plus"></mdb-icon>
-        &nbsp;&nbsp;New Project
-      </a> -->
       <h3 class="text-left pt-3">Projects</h3>
       <hr>
       <div class="row">
-        <div class="col-sm-6 mb-3 mb-md-4">
-          <mdb-card>
-            <mdb-card-body>
-              <mdb-card-title>
-                <h5>Special title treatment</h5>
-              </mdb-card-title>
-              <mdb-card-text>With supporting text below as a natural lead-in to additional content</mdb-card-text>
-              <a href="#!" mdbBtn color="brown">Go somewhere</a>
-            </mdb-card-body>
-          </mdb-card>
-        </div>
-        <div class="col-sm-6 mb-md-4">
-          <mdb-card>
-            <mdb-card-body>
-              <mdb-card-title>
-                <h5>Special title treatment</h5>
-              </mdb-card-title>
-              <mdb-card-text>With supporting text below as a natural lead-in to additional content</mdb-card-text>
-              <a href="#!" mdbBtn color="brown">Go somewhere</a>
-            </mdb-card-body>
-          </mdb-card>
+        <div class="col-sm-6 mb-3 mb-md-4" *ngFor="let project of projects">
+          <app-project-card [project]="project" (deleteProject)="deleteProject($event)"></app-project-card>
         </div>
       </div>
     </div>
