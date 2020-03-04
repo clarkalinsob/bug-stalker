@@ -8,13 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { EgAppCardComponent } from './eg-app-card/eg-app-card.component';
-import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProjectModalComponent } from './project-modal/project-modal.component';
-import { ProjectCardComponent } from './project-card/project-card.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
+import { EgAppCardComponent } from './components/eg-app-card/eg-app-card.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProjectModalComponent } from './components/project-modal/project-modal.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [

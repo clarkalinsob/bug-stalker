@@ -24,43 +24,17 @@
       </mdb-card>
     </div>
     <div class="col-8">
-      <app-project-modal></app-project-modal>
+      <app-project-modal (createProject)="createProject($event)"></app-project-modal>
       <h3 class="text-left pt-3">Projects</h3>
       <hr>
+      <div *ngIf="projects.length < 1" class="alert alert-primary" role="alert">
+        You do not have any projects. Click on <b>New Project</b> to create one.
+      </div>
       <div class="row">
-        <div class="col-sm-6 mb-3 mb-md-4" *ngFor="let project of projects">
+        <div class="col-lg-6 mb-3" *ngFor="let project of projects">
           <app-project-card [project]="project" (deleteProject)="deleteProject($event)"></app-project-card>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-<!-- <div id="page-container" class="container">
-  <div class="row">
-    <div class="col-sm-6 mb-3 mb-md-4">
-      <mdb-card>
-        <mdb-card-body>
-          <mdb-card-title>
-            <h5>Special title treatment</h5>
-          </mdb-card-title>
-          <mdb-card-text>With supporting text below as a natural lead-in to additional content</mdb-card-text>
-          <a href="#!" mdbBtn color="primary">Go somewhere</a>
-        </mdb-card-body>
-      </mdb-card>
-    </div>
-    <div class="col-sm-6 mb-md-4">
-      <mdb-card>
-        <mdb-card-body>
-          <mdb-card-title>
-            <h5>Special title treatment</h5>
-          </mdb-card-title>
-          <mdb-card-text>With supporting text below as a natural lead-in to additional content</mdb-card-text>
-          <a href="#!" mdbBtn color="primary">Go somewhere</a>
-        </mdb-card-body>
-      </mdb-card>
-    </div>
-  </div>
-</div> -->

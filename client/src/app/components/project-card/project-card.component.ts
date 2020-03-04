@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ProjectService } from '../services/project.service';
-import { Project } from '../models/project'
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../models/project'
 
 @Component({
   selector: 'app-project-card',
@@ -14,11 +14,13 @@ export class ProjectCardComponent implements OnInit {
 
   constructor(private projectService: ProjectService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  updateProject(project: Project) {
+    this.projectService.updateProject(project).subscribe(p => this.project = p)
   }
 
-  onDelete(project) {
+  onDelete(project: Project) {
     this.deleteProject.emit(project)
   }
-
 }

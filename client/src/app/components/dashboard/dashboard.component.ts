@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../auth.service';
-import { ProjectService } from '../services/project.service'
-import { Project } from '../models/project'
+import { AuthService } from '../../auth.service';
+import { ProjectService } from '../../services/project.service'
+import { Project } from '../../models/project'
 
 @Component({
   selector: 'app-dashboard',
@@ -17,14 +17,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectService.getProjects().subscribe(projects => {
-      this.projects = projects
-    })
+    this.projectService.getProjects().subscribe(projects => this.projects = projects)
+  }
+
+  createProject(project: Project) {
+    this.projectService.createProject(project).subscribe(p => this.projects.push(p))
   }
 
   deleteProject(project: Project) {
     this.projects = this.projects.filter(p => p._id !== project._id)
     this.projectService.deleteProject(project).subscribe()
   }
-
 }
