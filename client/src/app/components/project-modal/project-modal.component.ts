@@ -11,11 +11,11 @@ export class ProjectModalComponent implements OnInit {
   @Output() createProject: EventEmitter<any> = new EventEmitter()
   @Output() updateProject: EventEmitter<any> = new EventEmitter()
 
-  name: String
-  description: String
-  error: String
-  isValid: Boolean
-  isUpdate: Boolean
+  name: string
+  description: string
+  error: string
+  isValid: boolean
+  isUpdate: boolean
 
   constructor() {}
 

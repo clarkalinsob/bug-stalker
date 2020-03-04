@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProjectService {
-  serverUrl: String = 'http://localhost:5000'
+  serverUrl: string = 'http://localhost:5000'
 
   constructor(private http:HttpClient) {}
 

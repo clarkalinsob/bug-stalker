@@ -8,7 +8,9 @@
     </mdb-card-text>
     <div class="row">
       <div class="col-sm-8">
-        <button [routerLink]="['/home']" routerLinkActive="router-link-active" mdbBtn class="float-left btn btn-block btn-brown btn-sm">Open Project</button>
+        <button [routerLink]="['/projects', project._id]" routerLinkActive="router-link-active" mdbBtn class="float-left btn btn-block btn-brown btn-sm">
+          Open Project
+        </button>
       </div>
       <div class="col-sm-4">
         <a class="relative waves-light float-right mr-0 ml-2 mt-1" (click)="onDelete(project)">
