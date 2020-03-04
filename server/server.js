@@ -14,9 +14,7 @@ const bugsRoute = require('./routes/bugsRoute')
 app.use(cors())
 app.use(bodyParser.json())
 
-app.get('/api', (req, res) => {
-  res.send({ msg: 'API listening at /api' })
-})
+app.get('/api', (req, res) => res.send({ msg: 'API listening at /api' }))
 
 app.use('/api/v1/projects', projectsRoute)
 app.use('/api/v1/bugs', bugsRoute)
