@@ -43,6 +43,7 @@ router.post('/:projectId/', async (req, res) => {
   const bug = new Bug()
 
   try {
+    bug.projectId = req.params.projectId
     Object.keys(req.body).forEach(key => (bug[key] = req.body[key]))
 
     const result = await bug.save()

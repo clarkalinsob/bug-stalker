@@ -1,0 +1,43 @@
+<div class="row ml-5 mr-5">
+  <div class="col-md-3">
+    <h2>To do</h2>
+
+    <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="pending"
+      [cdkDropListConnectedTo]="[inProgressList, forReviewList, doneList]" class="border list pb-5" (cdkDropListDropped)="drop($event, 'pending')">
+      <mdb-card class="pl-3 pr-3 mb-2" *ngFor="let bug of pending" (mousedown)="onMouseDown(bug._id)" cdkDrag>
+        <app-bug-card [bug]="bug"></app-bug-card>
+      </mdb-card>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h2>In Progress</h2>
+
+    <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress" 
+      [cdkDropListConnectedTo]="[pendingList, forReviewList, doneList]" class="border list pb-5" (cdkDropListDropped)="drop($event, 'in progress')">
+      <mdb-card class="pl-3 pr-3 mb-2" *ngFor="let bug of inProgress" (mousedown)="onMouseDown(bug._id)" cdkDrag>
+        <app-bug-card [bug]="bug"></app-bug-card>
+      </mdb-card>  
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h2>For Review</h2>
+
+    <div cdkDropList #forReviewList="cdkDropList" [cdkDropListData]="forReview"
+      [cdkDropListConnectedTo]="[pendingList, inProgressList, doneList]" class="border list pb-5" (cdkDropListDropped)="drop($event, 'for review')">
+      <mdb-card class="pl-3 pr-3 mb-2" *ngFor="let bug of forReview" (mousedown)="onMouseDown(bug._id)" cdkDrag>
+        <app-bug-card [bug]="bug"></app-bug-card>
+      </mdb-card>  
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h2>Done</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[pendingList, inProgressList, forReviewList]" class="border list pb-5" (cdkDropListDropped)="drop($event, 'done')">
+      <mdb-card class="pl-3 pr-3 mb-2" *ngFor="let bug of done" (mousedown)="onMouseDown(bug._id)" cdkDrag>
+        <app-bug-card [bug]="bug"></app-bug-card>
+      </mdb-card>  
+    </div>
+  </div>
+</div>
+

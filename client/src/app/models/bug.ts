@@ -1,5 +1,6 @@
 export class Bug {
-  _id: number
+  _id: string
   name: string
   description: string
+  status: string
 }

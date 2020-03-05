@@ -15,6 +15,10 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProjectModalComponent } from './components/project-modal/project-modal.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { BoardPageComponent } from './components/pages/board-page/board-page.component';
+import { DragDropComponent } from './components/drag-drop/drag-drop.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BugCardComponent } from './components/bug-card/bug-card.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     FooterComponent,
     DashboardComponent,
     ProjectModalComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    BoardPageComponent,
+    DragDropComponent,
+    BugCardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +40,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     MDBBootstrapModule.forRoot(),
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
