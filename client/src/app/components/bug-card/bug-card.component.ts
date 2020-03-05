@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Bug } from 'src/app/models/bug';
 
@@ -8,7 +8,8 @@ import { Bug } from 'src/app/models/bug';
   styleUrls: ['./bug-card.component.scss']
 })
 export class BugCardComponent implements OnInit {
-  @Input() bug: Bug[]
+  @Input() bug: Bug
+  @Input() projectId: string
 
   constructor() {}
 

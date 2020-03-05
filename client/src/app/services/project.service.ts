@@ -16,27 +16,27 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProjectService {
-  serverUrl: string = 'http://localhost:5000'
+  api: string = 'http://localhost:5000/api/v1/projects'
 
   constructor(private http: HttpClient) {}
 
   getProjects():Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.serverUrl}/api/v1/projects`, httpOptions)
+    return this.http.get<Project[]>(`${this.api}`, httpOptions)
   }
 
   getProject(projectId: string):Observable<Project> {
-    return this.http.get<Project>(`${this.serverUrl}/api/v1/projects/${projectId}`, httpOptions)
+    return this.http.get<Project>(`${this.api}/${projectId}`, httpOptions)
   }
 
   createProject(project: Project):Observable<Project> {
-    return this.http.post<Project>(`${this.serverUrl}/api/v1/projects`, project, httpOptions)
+    return this.http.post<Project>(`${this.api}`, project, httpOptions)
   }
 
   updateProject(project: Project):Observable<Project> {
-    return this.http.patch<Project>(`${this.serverUrl}/api/v1/projects/${project._id}`, project, httpOptions)
+    return this.http.patch<Project>(`${this.api}/${project._id}`, project, httpOptions)
   }
 
   deleteProject(project: Project):Observable<Project> {
-    return this.http.delete<Project>(`${this.serverUrl}/api/v1/projects/${project._id}`, httpOptions)
+    return this.http.delete<Project>(`${this.api}/${project._id}`, httpOptions)
   }
 }

@@ -43,7 +43,11 @@ export class DragDropComponent implements OnInit {
         event.currentIndex);
     }
     
+    const bug = {
+      status
+    }
     const selectedBug = event.container.data.filter(c => c._id === this.bugId)
+    this.bugService.updateBug(this.projectId, this.bugId, bug).subscribe(b => console.log(b))
   }
 
   onMouseDown(bugId: string) {

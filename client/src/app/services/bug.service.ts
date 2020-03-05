@@ -16,13 +16,16 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BugService {
-  serverUrl: string = 'http://localhost:5000'
+  api: string = 'http://localhost:5000/api/v1/bugs'
 
   constructor(private http: HttpClient) {}
 
   getBugs(projectId: string):Observable<Bug[]> {
-    return this.http.get<Bug[]>(`${this.serverUrl}/api/v1/bugs/${projectId}`, httpOptions)
+    return this.http.get<Bug[]>(`${this.api}/${projectId}`, httpOptions)
   }
 
-  
+  updateBug(projectId: string, bugId: string, data: any):Observable<Bug> {
+    return this.http.patch<Bug>(`${this.api}/${projectId}/${bugId}`, data,httpOptions)
+  }
+
 }
