@@ -19,8 +19,8 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: BoardPageComponent
-        // canActivate: [AuthGuard]
+        component: BoardPageComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },
@@ -43,7 +43,7 @@ const routes: Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
   ],
   exports: [RouterModule]
 })

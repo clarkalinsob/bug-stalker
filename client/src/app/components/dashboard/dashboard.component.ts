@@ -10,18 +10,16 @@ import { Project } from '../../models/project'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  projects: Project[]
+  projects: Project[] = []
 
-  constructor(public auth: AuthService, private projectService: ProjectService) {
-    this.projects = []
-  }
+  constructor(public auth: AuthService, private projectService: ProjectService) {}
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(projects => this.projects = projects)
   }
 
   createProject(project: Project) {
-    this.projectService.createProject(project).subscribe(p => this.projects.push(p))
+    this.projectService.createProject(project).subscribe(p => this.projects.unshift(p))
   }
 
   deleteProject(project: Project) {

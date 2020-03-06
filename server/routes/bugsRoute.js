@@ -18,9 +18,7 @@ router.use((err, _, res, next) => {
 router.get('/:projectId/', async (req, res) => {
   const bugs = await Bug.find({ projectId: req.params.projectId })
 
-  if (bugs.length < 1) return res.sendStatus(404)
-
-  res.send(bugs)
+  if (bugs.length > 0) res.send(bugs)
 })
 
 // *** END
@@ -64,6 +62,7 @@ router.patch('/:projectId/:bugId', async (req, res) => {
   if (!bug) return res.sendStatus(404)
 
   try {
+    bug.projectId = req.params.projectId
     Object.keys(req.body).forEach(key => (bug[key] = req.body[key]))
 
     const result = await bug.save()

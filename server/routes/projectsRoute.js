@@ -17,11 +17,9 @@ router.use((err, _, res, next) => {
 // GET *READ* Multiple Projects
 
 router.get('/', async (req, res) => {
-  const projects = await Project.find()
+  const projects = await Project.find().sort({ updatedAt: -1 })
 
-  if (projects.length < 1) return res.sendStatus(404)
-
-  res.send(projects)
+  if (projects.length > 0) res.send(projects)
 })
 
 // *** END

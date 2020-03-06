@@ -13,6 +13,10 @@ const userSchema = new Schema({
 
 const bugSchema = new Schema(
   {
+    _index: {
+      type: Number,
+      required: false
+    },
     name: {
       type: String,
       required: true
@@ -29,7 +33,7 @@ const bugSchema = new Schema(
     status: {
       type: String,
       required: true,
-      enum: ['pending', 'in progress', 'for review', 'done'],
+      enum: ['pending', 'inProgress', 'forReview', 'done'],
       default: 'pending'
     },
     isClosed: {

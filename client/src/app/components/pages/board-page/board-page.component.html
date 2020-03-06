@@ -1,11 +1,9 @@
 
-<div id="page-container" *ngIf="project">
-  <!-- Project Info -->
+<div *ngIf="project">
   <div class="container mb-5">
     <h1>{{ project ? project.name : 'loading' }}</h1>
     <p>{{ project ? project.description : 'loading' }}</p>
   </div>
-  <!-- -->
   <app-drag-drop [projectId]="project._id"></app-drag-drop>
 </div>
 

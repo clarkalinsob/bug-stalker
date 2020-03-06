@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { BugService } from 'src/app/services/bug.service';
@@ -13,8 +13,7 @@ import { Bug } from 'src/app/models/bug';
 export class DragDropComponent implements OnInit {
   @Input() projectId: string
 
-  bugId: string
-  bugs: Bug[]
+  bug: Bug
   pending: Bug[]
   inProgress: Bug[]
   forReview: Bug[]
@@ -25,32 +24,68 @@ export class DragDropComponent implements OnInit {
   ngOnInit() {
     // Get all bugs of the project
     this.bugService.getBugs(this.projectId).subscribe(bugs => {
-      this.bugs = bugs
-      this.pending = this.bugs.filter(b => b.status === 'pending')
-      this.inProgress = this.bugs.filter(b => b.status === 'in progress')
-      this.forReview = this.bugs.filter(b => b.status === 'for review')
-      this.done = this.bugs.filter(b => b.status === 'done')
+      const pending = bugs.filter(b => b.status === 'pending')
+      const inProgress = bugs.filter(b => b.status === 'inProgress')
+      const forReview = bugs.filter(b => b.status === 'forReview')
+      const done = bugs.filter(b => b.status === 'done')
+
+      this.pending = this.sortBugs(pending)
+      this.inProgress = this.sortBugs(inProgress)
+      this.forReview = this.sortBugs(forReview)
+      this.done = this.sortBugs(done)
     })
   }
 
   drop(event: CdkDragDrop<any[]>, status: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      event.container.data.forEach((item, index) => {
+        const bug = { 
+          _index: index 
+        }
+        
+        // Update Bug
+        this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
+      })
+      this.bug.status = status
+      
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+
+      // Slice the array and update bug
+      this.sliceAndUpdate(event.container.data, event.currentIndex, status)
+      this.bug.status = status
     }
-    
-    const bug = {
-      status
-    }
-    const selectedBug = event.container.data.filter(c => c._id === this.bugId)
-    this.bugService.updateBug(this.projectId, this.bugId, bug).subscribe(b => console.log(b))
   }
 
-  onMouseDown(bugId: string) {
-    this.bugId = bugId
+  onMouseDown(bug: Bug) {
+    this.bug = bug
   }
+
+  sortBugs(bugs: Bug[]) {
+    bugs.sort((a, b) => { return a._index - b._index })
+    return bugs
+  }
+
+  sliceAndUpdate (bugs: Bug[], index: number, status: string) {
+    const sliced = bugs.slice(index) 
+    let indexCount = 0
+
+    sliced.forEach(item => {
+      const bug = {
+        _index: index + indexCount,
+        status
+      }
+
+      this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
+      indexCount++
+    })
+
+    return 
+  }
+
 }
