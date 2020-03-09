@@ -32,4 +32,8 @@ export class BugService {
     return this.http.patch<Bug>(`${this.api}/${projectId}/${bugId}`, data, httpOptions)
   }
 
+  deleteBug(projectId: string, bugId: string) {
+    return this.http.delete<Bug>(`${this.api}/${projectId}/${bugId}`, httpOptions)
+  }
+
 }

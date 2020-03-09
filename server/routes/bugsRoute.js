@@ -84,7 +84,7 @@ router.delete('/:projectId/:bugId', async (req, res) => {
 
   await bug.remove()
 
-  res.sendStatus(200)
+  res.send()
 })
 
 // *** END

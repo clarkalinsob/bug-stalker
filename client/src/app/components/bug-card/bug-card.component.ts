@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { BugService } from 'src/app/services/bug.service';
 import { Bug } from 'src/app/models/bug';
 
 @Component({
@@ -10,9 +11,14 @@ import { Bug } from 'src/app/models/bug';
 export class BugCardComponent implements OnInit {
   @Input() bug: Bug
   @Input() projectId: string
+  @Output() deleteBug: EventEmitter<Bug> = new EventEmitter()
 
   constructor() {}
 
   ngOnInit() {}
+
+  onDelete() {
+    this.deleteBug.emit(this.bug)
+  }
 
 }
