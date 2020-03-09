@@ -24,8 +24,12 @@ export class BugService {
     return this.http.get<Bug[]>(`${this.api}/${projectId}`, httpOptions)
   }
 
+  createBug(projectId: string, data: any):Observable<Bug> {
+    return this.http.post<Bug>(`${this.api}/${projectId}`, data, httpOptions)
+  }
+
   updateBug(projectId: string, bugId: string, data: any):Observable<Bug> {
-    return this.http.patch<Bug>(`${this.api}/${projectId}/${bugId}`, data,httpOptions)
+    return this.http.patch<Bug>(`${this.api}/${projectId}/${bugId}`, data, httpOptions)
   }
 
 }

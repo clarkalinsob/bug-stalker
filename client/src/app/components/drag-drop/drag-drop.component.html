@@ -1,18 +1,15 @@
 <div class="row ml-5 mr-5">
-  <div class="col-md-3">
-    <mdb-card class="mb-2 pl-2 pr-2 pt-2 pb-2" bgColor="bg-danger">
+  <div class="col-md-3 mb-3">
+    <mdb-card class="mb-2 pl-3 pr-2 pt-2 pb-2" bgColor="bg-danger">
       <div class="row">
         <div class="col-8">
           <span class="font-weight-bold white-text">PENDING</span>
         </div>
         <div class="col-4">
-          <a class="waves-light float-right">
-            <mdb-icon fas icon="plus-circle" size="1x" class="white-text" aria-hidden="true"></mdb-icon>
-          </a>
+          <app-bug-modal [bugs]="pending" [status]="'pending'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
-
     <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="pending"
       [cdkDropListConnectedTo]="[inProgressList, forReviewList, doneList]" class="border list pb-5" style="background-color: whitesmoke;" (cdkDropListDropped)="drop($event, 'pending')">
       <mdb-card class="mb-2 border-danger" *ngFor="let bug of pending" (mousedown)="onMouseDown(bug)" cdkDrag>
@@ -20,16 +17,15 @@
       </mdb-card>
     </div>
   </div>
-  <div class="col-md-3">
-    <mdb-card class="mb-2 pl-2 pr-2 pt-2 pb-2" bgColor="bg-warning">
+
+  <div class="col-md-3 mb-3">
+    <mdb-card class="mb-2 pl-3 pr-2 pt-2 pb-2" bgColor="bg-warning">
       <div class="row">
         <div class="col-8">
           <span class="font-weight-bold white-text">IN PROGRESS</span>
         </div>
         <div class="col-4">
-          <a class="waves-light float-right">
-            <mdb-icon fas icon="plus-circle" size="1x" class="white-text" aria-hidden="true"></mdb-icon>
-          </a>
+          <app-bug-modal [bugs]="inProgress" [status]="'inProgress'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
@@ -40,20 +36,18 @@
       </mdb-card>  
     </div>
   </div>
-  <div class="col-md-3">
-    <mdb-card class="mb-2 pl-2 pr-2 pt-2 pb-2" bgColor="bg-secondary">
+
+  <div class="col-md-3 mb-3">
+    <mdb-card class="mb-2 pl-3 pr-2 pt-2 pb-2" bgColor="bg-secondary">
       <div class="row">
         <div class="col-8">
           <span class="font-weight-bold white-text">FOR REVIEW</span>
         </div>
         <div class="col-4">
-          <a class="waves-light float-right">
-            <mdb-icon fas icon="plus-circle" size="1x" class="white-text" aria-hidden="true"></mdb-icon>
-          </a>
+          <app-bug-modal [bugs]="forReview" [status]="'forReview'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
-
     <div cdkDropList #forReviewList="cdkDropList" [cdkDropListData]="forReview"
       [cdkDropListConnectedTo]="[pendingList, inProgressList, doneList]" class="border list pb-5" style="background-color: whitesmoke;" (cdkDropListDropped)="drop($event, 'forReview')">
       <mdb-card class="mb-2 border-secondary" *ngFor="let bug of forReview" (mousedown)="onMouseDown(bug)" cdkDrag>
@@ -61,20 +55,18 @@
       </mdb-card>  
     </div>
   </div>
-  <div class="col-md-3">
-    <mdb-card class="mb-2 pl-2 pr-2 pt-2 pb-2" bgColor="bg-success">
+
+  <div class="col-md-3 mb-3">
+    <mdb-card class="mb-2 pl-3 pr-2 pt-2 pb-2" bgColor="bg-success">
       <div class="row">
         <div class="col-8">
           <span class="font-weight-bold white-text">DONE</span>
         </div>
         <div class="col-4">
-          <a class="waves-light float-right">
-            <mdb-icon fas icon="plus-circle" size="1x" class="white-text" aria-hidden="true"></mdb-icon>
-          </a>
+          <app-bug-modal [bugs]="done" [status]="'done'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
-
     <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
       [cdkDropListConnectedTo]="[pendingList, inProgressList, forReviewList]" class="border list pb-5" style="background-color: whitesmoke;" (cdkDropListDropped)="drop($event, 'done')">
       <mdb-card class="mb-2 border-success" *ngFor="let bug of done" (mousedown)="onMouseDown(bug)" cdkDrag>

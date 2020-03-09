@@ -88,4 +88,8 @@ export class DragDropComponent implements OnInit {
     return 
   }
 
+  createBug(bug: Bug) {
+    this.bugService.createBug(this.projectId, bug).subscribe(b => this[bug.status].push(b))
+  }
+
 }
