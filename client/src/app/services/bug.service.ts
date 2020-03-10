@@ -40,6 +40,7 @@ export class BugService {
       forReview,
       done
      }
+     
     return this.http.post(`${this.api}/drag-drop`, data, httpOptions)
   }
 

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { BugService } from 'src/app/services/bug.service';
 
 import { Bug } from 'src/app/models/bug';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-drag-drop',
