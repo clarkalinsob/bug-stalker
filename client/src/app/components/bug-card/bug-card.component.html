@@ -1,21 +1,32 @@
-<mdb-card-body>
-  <div class="pr-3 pl-3">
-    <mdb-card-title class="">
-      <h5>{{ bug.name }}</h5>
-    </mdb-card-title>
-    <mdb-card-text>
-      {{ bug.description }}
-    </mdb-card-text>
+<div class="pt-2 pb-2">
+  <div class="px-3">
+    <p>
+      {{ 
+        bug.name.length > 20
+        ? bug.name.substring(0, 20) + '...'
+        : bug.name 
+      }}
+    </p>
   </div>
+  <hr>
   <div class="row">
     <div class="col-8">
-      
+      <a class="float-left pl-3">
+        <mdb-icon fas icon="circle"
+          [ngClass]="{ 
+            'text-danger': bug.status === 'pending' ,
+            'text-warning': bug.status === 'inProgress',
+            'text-secondary': bug.status === 'forReview',
+            'text-success': bug.status === 'done'
+          }"
+        ></mdb-icon>
+      </a>
     </div>
     <div class="col-4">
-      <a class="waves-light float-right pr-2">
+      <a class="waves-light float-right pr-3">
         <mdb-icon fas icon="trash" size="1x" class="dark-grey-text" aria-hidden="true" (click)="onDelete()"></mdb-icon>
       </a>
       <app-bug-modal [bug]="bug" (updateBug)="updateBug($event)"></app-bug-modal>
     </div>
   </div>
-</mdb-card-body>
+</div>

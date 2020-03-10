@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'
+import { Subject, Observable } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import Pusher from 'pusher-js'
 
 import { Bug } from '../models/bug'
 
@@ -17,8 +18,34 @@ const httpOptions = {
 })
 export class BugService {
   api: string = 'http://localhost:5000/api/v1/bugs'
+  realtimeData: Subject<any> = new Subject<any>()
+  pusherClient: Pusher
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const PUSHER_APP_ID = '8b85aee5ce4c8058f871'
+    const PUSHER_APP_CLUSTER = 'ap1'
+
+    this.pusherClient = new Pusher(PUSHER_APP_ID, { cluster: PUSHER_APP_CLUSTER })
+    const channel = this.pusherClient.subscribe('realtime-bugs')
+
+    channel.bind('create', data => this.realtimeData.next(data))
+    channel.bind('delete', data => this.realtimeData.next(data))
+    channel.bind('drag-drop', data => this.realtimeData.next(data))
+  }
+
+  dragDrop(pending: any, inProgress: any, forReview: any, done: any): Observable<any> {
+    const data = { 
+      pending,
+      inProgress,
+      forReview,
+      done
+     }
+    return this.http.post(`${this.api}/drag-drop`, data, httpOptions)
+  }
+
+  getBugRealtime(): Observable<any> {
+    return this.realtimeData.asObservable()
+  } 
 
   getBugs(projectId: string):Observable<Bug[]> {
     return this.http.get<Bug[]>(`${this.api}/${projectId}`, httpOptions)

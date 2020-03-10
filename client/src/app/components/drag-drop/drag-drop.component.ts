@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
 
 import { BugService } from 'src/app/services/bug.service';
 
 import { Bug } from 'src/app/models/bug';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-drag-drop',
@@ -13,13 +15,25 @@ import { Bug } from 'src/app/models/bug';
 export class DragDropComponent implements OnInit {
   @Input() projectId: string
 
+  bugSubscription: Subscription;
   bug: Bug
   pending: Bug[]
   inProgress: Bug[]
   forReview: Bug[]
   done: Bug[]
 
-  constructor (private bugService: BugService) {}
+  constructor (private bugService: BugService) {
+    this.bugSubscription = bugService.getBugRealtime().subscribe((data: any) => {
+      if (data.event === 'create') this[data.bug.status].push(data.bug)
+      if (data.event === 'delete') this[data.bug.status] = this[data.bug.status].filter(b => b._id != data.bug._id)
+      if (data.event === 'drag-drop') {
+        this.pending = data.pending
+        this.inProgress = data.inProgress
+        this.forReview = data.forReview
+        this.done = data.done  
+      }
+    })
+  }
 
   ngOnInit() {
     // Get all bugs of the project
@@ -40,16 +54,10 @@ export class DragDropComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
-      event.container.data.forEach((item, index) => {
-        const bug = { 
-          _index: index 
-        }
-        
-        // Update Bug
-        this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
-      })
+      // Reset Indexes
+      this.resetIndexes(event.container.data)
       this.bug.status = status
-      
+
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
@@ -59,7 +67,21 @@ export class DragDropComponent implements OnInit {
       // Slice the array and update bug
       this.sliceAndUpdate(event.container.data, event.currentIndex, status)
       this.bug.status = status
+
     }
+    this.bugService.dragDrop(this.pending, this.inProgress, this.forReview, this.done).subscribe()
+  }
+
+  createBug(bug: Bug) {
+    this.bugService.createBug(this.projectId, bug).subscribe()
+  }
+
+  deleteBug(bug: Bug) {
+    // Delete the bug from the server
+    this.bugService.deleteBug(this.projectId, bug._id).subscribe()
+
+    // Reset Indexes
+    this.resetIndexes(this[bug.status])
   }
 
   onMouseDown(bug: Bug) {
@@ -69,6 +91,17 @@ export class DragDropComponent implements OnInit {
   sortBugs(bugs: Bug[]) {
     bugs.sort((a, b) => { return a._index - b._index })
     return bugs
+  }
+
+  resetIndexes(bugs: Bug[]) {
+    bugs.forEach((item, index) => {
+      const bug = { 
+        _index: index 
+      }
+      
+      // Update Bug
+      this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
+    })
   }
 
   sliceAndUpdate (bugs: Bug[], index: number, status: string) {
@@ -86,26 +119,6 @@ export class DragDropComponent implements OnInit {
     })
 
     return 
-  }
-
-  createBug(bug: Bug) {
-    this.bugService.createBug(this.projectId, bug).subscribe(b => this[bug.status].push(b))
-  }
-
-  deleteBug(bug: Bug) {
-    // Remove the bug from the array
-    this[bug.status].splice(bug._index, 1)
-
-    // Delete the bug from the server
-    this.bugService.deleteBug(this.projectId, bug._id).subscribe(() => {
-      // Update indexes
-      const sliced = this[bug.status].slice(bug._index) 
-      sliced.forEach(item => {
-        item._index = item._index - 1
-  
-        this.bugService.updateBug(this.projectId, item._id, item).subscribe()
-      })
-    })
   }
 
 }

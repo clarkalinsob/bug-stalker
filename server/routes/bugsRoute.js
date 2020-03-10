@@ -3,6 +3,15 @@ const router = express.Router()
 
 const checkJwt = require('../auth/checkJwt')
 const Bug = require('../models/Bug')
+const Pusher = require('pusher')
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_APP_SECRET,
+  useTLS: process.env.PUSHER_APP_SECURE,
+  cluster: process.env.PUSHER_APP_CLUSTER
+})
 
 // router.use(checkJwt(process.env.AUTH0_API_AUDIENCE))
 // router.use((err, _, res, next) => {
@@ -12,6 +21,22 @@ const Bug = require('../models/Bug')
 //   }
 //   next()
 // })
+
+// POST *POST* Drag-Drop arrays
+
+router.post('/drag-drop', async (req, res) => {
+  pusher.trigger('realtime-bugs', 'drag-drop', {
+    event: 'drag-drop',
+    pending: req.body.pending,
+    inProgress: req.body.inProgress,
+    forReview: req.body.forReview,
+    done: req.body.done
+  })
+
+  res.status(200).send({ message: 'Successfully updated.', status: 200 })
+})
+
+// *** END
 
 // GET *READ* Multiple Bugs
 
@@ -45,6 +70,11 @@ router.post('/:projectId/', async (req, res) => {
     Object.keys(req.body).forEach(key => (bug[key] = req.body[key]))
 
     const result = await bug.save()
+
+    pusher.trigger('realtime-bugs', 'create', {
+      event: 'create',
+      bug: result
+    })
 
     res.send(result)
   } catch (e) {
@@ -81,6 +111,11 @@ router.delete('/:projectId/:bugId', async (req, res) => {
   const bug = await Bug.findById(req.params.bugId)
 
   if (!bug) return res.sendStatus(404)
+
+  pusher.trigger('realtime-bugs', 'delete', {
+    event: 'delete',
+    bug
+  })
 
   await bug.remove()
 

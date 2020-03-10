@@ -26,6 +26,7 @@
     "angular-bootstrap-md": "8.10.0",
     "chart.js": "^2.5.0",
     "hammerjs": "^2.0.8",
+    "pusher-js": "^5.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
