@@ -13,12 +13,16 @@ export class BugCardComponent implements OnInit {
   @Input() projectId: string
   @Output() deleteBug: EventEmitter<Bug> = new EventEmitter()
 
-  constructor() {}
+  constructor(private bugService: BugService) {}
 
   ngOnInit() {}
 
   onDelete() {
     this.deleteBug.emit(this.bug)
+  }
+
+  updateBug(bug: Bug) {
+    this.bugService.updateBug(this.projectId, this.bug._id, bug).subscribe(b => this.bug = b)
   }
 
 }

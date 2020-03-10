@@ -1,5 +1,9 @@
-<a class="waves-light float-right">
+<a *ngIf="!isUpdate"  class="waves-light float-right">
   <mdb-icon fas icon="plus-circle" size="1x" class="white-text" aria-hidden="true" (click)="basicModal.show()"></mdb-icon>
+</a>
+
+<a *ngIf="isUpdate" class="waves-light float-right pr-2">
+  <mdb-icon fas icon="edit" size="1x" class="dark-grey-text" aria-hidden="true" (click)="basicModal.show()"></mdb-icon>
 </a>
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" (open)="onOpen($event)" aria-hidden="true">

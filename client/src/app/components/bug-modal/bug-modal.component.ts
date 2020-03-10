@@ -11,24 +11,27 @@ export class BugModalComponent implements OnInit {
   @Input() bugs: Bug[]
   @Input() status: string
   @Output() createBug: EventEmitter<any> = new EventEmitter()
+  @Output() updateBug: EventEmitter<any> = new EventEmitter()
 
   name: string
   description: string
   error: string
   isValid: boolean
+  isUpdate: boolean
 
   constructor() { }
 
   ngOnInit() {
     this.name = ''
     this.isValid = false
+    if (this.bug) this.isUpdate = !this.isUpdate
   }
 
   onSubmit() {
     if (this.name.trim() === '') return this.error = '*Name is required.'
 
     const bug = {
-      _index: this.bugs.length,
+      _index: this.bugs ? this.bugs.length : this.bug._index,
       name: this.name,
       description: this.description,
       status: this.status
@@ -36,7 +39,11 @@ export class BugModalComponent implements OnInit {
 
     this.isValid = !this.isValid
 
-    this.createBug.emit(bug)
+    // Update bug
+    if (this.bug) this.updateBug.emit(bug)
+    
+    // Create bug
+    else this.createBug.emit(bug)
   }
 
   onOpen(event: any) {

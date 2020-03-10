@@ -94,9 +94,10 @@ export class DragDropComponent implements OnInit {
 
   deleteBug(bug: Bug) {
     // Remove the bug from the array
+    this[bug.status].splice(bug._index, 1)
+
+    // Delete the bug from the server
     this.bugService.deleteBug(this.projectId, bug._id).subscribe(() => {
-      this[bug.status].splice(bug._index, 1)
-      
       // Update indexes
       const sliced = this[bug.status].slice(bug._index) 
       sliced.forEach(item => {
