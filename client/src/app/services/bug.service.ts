@@ -24,7 +24,7 @@ export class BugService {
   constructor(private http: HttpClient) {
     const PUSHER_APP_ID = '8b85aee5ce4c8058f871'
     const PUSHER_APP_CLUSTER = 'ap1'
-
+    
     this.pusherClient = new Pusher(PUSHER_APP_ID, { cluster: PUSHER_APP_CLUSTER })
     const channel = this.pusherClient.subscribe('realtime-bugs')
 
@@ -33,8 +33,9 @@ export class BugService {
     channel.bind('drag-drop', data => this.realtimeData.next(data))
   }
 
-  dragDrop(pending: any, inProgress: any, forReview: any, done: any): Observable<any> {
+  dragDrop(projectId: any, pending: any, inProgress: any, forReview: any, done: any): Observable<any> {
     const data = { 
+      projectId,
       pending,
       inProgress,
       forReview,

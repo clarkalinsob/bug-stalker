@@ -6,7 +6,7 @@
           <span class="font-weight-bold white-text">PENDING</span>
         </div>
         <div class="col-4">
-          <app-bug-modal [bugs]="pending" [status]="'pending'" (createBug)="createBug($event)"></app-bug-modal>
+          <app-bug-modal [bugs]="pending ? pending : []" [status]="'pending'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
@@ -25,7 +25,7 @@
           <span class="font-weight-bold white-text">IN PROGRESS</span>
         </div>
         <div class="col-4">
-          <app-bug-modal [bugs]="inProgress" [status]="'inProgress'" (createBug)="createBug($event)"></app-bug-modal>
+          <app-bug-modal [bugs]="inProgress ? inProgress : []" [status]="'inProgress'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
@@ -44,7 +44,7 @@
           <span class="font-weight-bold white-text">FOR REVIEW</span>
         </div>
         <div class="col-4">
-          <app-bug-modal [bugs]="forReview" [status]="'forReview'" (createBug)="createBug($event)"></app-bug-modal>
+          <app-bug-modal [bugs]="forReview ? forReview : []" [status]="'forReview'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
@@ -63,7 +63,7 @@
           <span class="font-weight-bold white-text">DONE</span>
         </div>
         <div class="col-4">
-          <app-bug-modal [bugs]="done" [status]="'done'" (createBug)="createBug($event)"></app-bug-modal>
+          <app-bug-modal [bugs]="done ? done : []" [status]="'done'" (createBug)="createBug($event)"></app-bug-modal>
         </div>
       </div>
     </mdb-card>
