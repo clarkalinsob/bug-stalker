@@ -7,9 +7,12 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  loggedIn: boolean
 
   constructor(public auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth ? this.loggedIn = this.auth.loggedIn: this.loggedIn = false
+  }
 
 }

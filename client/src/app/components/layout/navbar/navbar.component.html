@@ -16,7 +16,6 @@
         <img *ngIf="auth.userProfile$ | async as profile" src={{profile.picture}} alt="" width="35" class="img-fluid rounded-circle z-depth-0 mr-1">
       </a>
       <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary mt-3" role="menu">
-        <a class="dropdown-item waves-light">My account</a>
         <a class="dropdown-item waves-light" (click)="auth.logout()">Log out</a>
       </div>
     </li>

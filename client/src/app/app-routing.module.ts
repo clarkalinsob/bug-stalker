@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { HomeComponent } from './components/home/home.component';
@@ -30,20 +30,25 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'login',
+    redirectTo: '/dashboard'
+  },
+  {
     path: 'home',
-    component: HomeComponent,
+    redirectTo: '/',
   },
-  { path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
+  { 
+    path: '',
+    pathMatch: 'full',
+    component: HomeComponent
+  }
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
   ],
   exports: [RouterModule]
 })

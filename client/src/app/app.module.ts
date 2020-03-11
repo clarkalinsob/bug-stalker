@@ -20,6 +20,7 @@ import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BugCardComponent } from './components/bug-card/bug-card.component';
 import { BugModalComponent } from './components/bug-modal/bug-modal.component';
+import { LoadingCenterComponent } from './components/loading-center/loading-center.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BugModalComponent } from './components/bug-modal/bug-modal.component';
     BoardPageComponent,
     DragDropComponent,
     BugCardComponent,
-    BugModalComponent
+    BugModalComponent,
+    LoadingCenterComponent
   ],
   imports: [
     BrowserModule,

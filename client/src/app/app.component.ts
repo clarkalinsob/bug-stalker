@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   constructor(public auth: AuthService) {}
 
-  title = 'mdb-angular-free';
 }
