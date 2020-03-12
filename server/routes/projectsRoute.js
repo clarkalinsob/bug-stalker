@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const checkJwt = require('../auth/checkJwt')
+const pusher = require('../pusher/config')
+
 const Project = require('../models/Project')
 const Bug = require('../models/Bug')
 
@@ -62,7 +64,9 @@ router.patch('/:projectId', async (req, res) => {
   if (!project) return res.sendStatus(404)
 
   try {
-    Object.keys(req.body).forEach(key => (project[key] = req.body[key]))
+    Object.keys(req.body).forEach(key =>
+      req.body[key] === 'log' ? project.logs.push(req.body.log) : (project[key] = req.body[key])
+    )
 
     const result = await project.save()
 

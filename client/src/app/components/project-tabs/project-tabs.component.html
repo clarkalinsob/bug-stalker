@@ -1,4 +1,7 @@
 <mat-tab-group mat-align-tabs="center" animationDuration="200ms">
+  <mat-tab label="Board">
+    <app-drag-drop [projectId]="project._id"></app-drag-drop>
+  </mat-tab>
   <mat-tab label="Details">
     <div *ngIf="project" class="container mt-4 mb-3">
       <div class="row">
@@ -24,8 +27,5 @@
         </div>
       </div>
     </div>
-  </mat-tab>
-  <mat-tab label="Board">
-    <app-drag-drop [projectId]="project._id"></app-drag-drop>
   </mat-tab>
 </mat-tab-group>
