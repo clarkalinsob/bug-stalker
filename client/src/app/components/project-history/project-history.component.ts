@@ -15,7 +15,7 @@ export class ProjectHistoryComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
 
-  constructor(public auth: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator
@@ -24,7 +24,7 @@ export class ProjectHistoryComponent implements OnInit {
 }
 
 const ELEMENT_DATA = [
-  {name: 'Hydrogen'},
-  {name: 'Helium'},
-  {name: 'Lithium'}
+  { name: 'Hydrogen' },
+  { name: 'Helium' },
+  { name: 'Lithium' }
 ]

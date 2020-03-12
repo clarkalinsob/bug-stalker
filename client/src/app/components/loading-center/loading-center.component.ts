@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth.service';
 export class LoadingCenterComponent implements OnInit {
   loggedIn: boolean
 
-  constructor(public auth: AuthService) {}
+  constructor() {}
 
   ngOnInit() {}
 

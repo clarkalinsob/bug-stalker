@@ -12,7 +12,7 @@ import { Project } from '../../models/project'
 export class DashboardComponent implements OnInit {
   projects: Project[] = []
 
-  constructor(public auth: AuthService, private projectService: ProjectService) {}
+  constructor(private auth: AuthService, private projectService: ProjectService) {}
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(projects => this.projects = projects)

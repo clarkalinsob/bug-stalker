@@ -9,7 +9,7 @@ import { AuthService } from '../../auth.service';
 export class HomeComponent implements OnInit {
   loggedIn: boolean
 
-  constructor(public auth: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
     this.auth ? this.loggedIn = this.auth.loggedIn: this.loggedIn = false
