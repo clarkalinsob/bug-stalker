@@ -14,7 +14,7 @@ import { Bug } from 'src/app/models/bug';
 export class DragDropComponent implements OnInit {
   @Input() projectId: string
 
-  bugSubscription: Subscription;
+  bugSubscription: Subscription
   bug: Bug
   pending: Bug[]
   inProgress: Bug[]

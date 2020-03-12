@@ -3,7 +3,13 @@
     <li *ngIf="auth.loggedIn" class="nav-item">
       <a [routerLink]="['/dashboard']" class="nav-link waves-light" mdbWavesEffect>
         <mdb-icon fas icon="tachometer-alt"></mdb-icon>
-        &nbsp;Dashbord<span class="sr-only">(current)</span>
+        Dashbord<span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li *ngIf="auth.loggedIn" class="nav-item">
+      <a [routerLink]="['/reports']" class="nav-link waves-light" mdbWavesEffect>
+        <mdb-icon fas icon="newspaper"></mdb-icon>
+        Reports<span class="sr-only">(current)</span>
       </a>
     </li>
   </ul>

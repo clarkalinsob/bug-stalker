@@ -5,8 +5,35 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
+    required: true
+  },
+  picture: {
+    type: String,
+    required: true
+  }
+})
+
+const logSchema = new Schema({
+  subject: userSchema,
+  predicate: {
+    verb: {
+      type: String,
+      required: true,
+      enum: ['created', 'updated', 'deleted']
+    },
+    object: {
+      type: String,
+      required: true
+    }
+  },
+  date: {
+    type: Date,
     required: true
   }
 })
@@ -22,7 +49,8 @@ const projectSchema = new Schema(
       required: false
     },
     createdBy: userSchema,
-    members: [userSchema]
+    members: [userSchema],
+    logs: [logSchema]
   },
   { timestamps: true }
 )

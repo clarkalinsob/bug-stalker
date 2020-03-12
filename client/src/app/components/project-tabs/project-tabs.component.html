@@ -1,0 +1,31 @@
+<mat-tab-group mat-align-tabs="center" animationDuration="200ms">
+  <mat-tab label="Details">
+    <div *ngIf="project" class="container mt-4 mb-3">
+      <div class="row">
+        <div class="col-lg-8">
+          <mdb-card>
+            <mdb-card-header class="brown white-text border-0">Project Details</mdb-card-header>
+            <mdb-card-body>
+              <form>
+                <div class="md-form form-group">
+                  <input mdbInput type="text" class="form-control" name="name" value="{{ project.name }}" [(ngModel)]="name">
+                  <label for="formGroupExampleInputMD">Name</label>
+                </div>
+                <div class="md-form form-group mt-1">
+                  <textarea mdbInput type="text" id="form7" class="md-textarea form-control" rows="5" name="description" value="{{ project.description }}" [(ngModel)]="description"></textarea>
+                  <label for="form7">Description</label>
+                </div>
+              </form>
+            </mdb-card-body>
+          </mdb-card>
+        </div>
+        <div class="col-lg-4">
+          <app-project-history></app-project-history>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Board">
+    <app-drag-drop [projectId]="project._id"></app-drag-drop>
+  </mat-tab>
+</mat-tab-group>

@@ -7,8 +7,24 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BoardPageComponent } from './components/pages/board-page/board-page.component';
 
 import { AuthGuard } from './auth.guard';
+import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component';
 
 const routes: Routes = [
+  {
+    path: 'reports',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: ReportsPageComponent
+      },
+      {
+        path: ':id',
+        component: BoardPageComponent,
+        canActivate: [AuthGuard]
+      }
+    ]
+  },
   {
     path: 'projects',
     children: [

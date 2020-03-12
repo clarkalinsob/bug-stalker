@@ -6,6 +6,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,6 +24,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BugCardComponent } from './components/bug-card/bug-card.component';
 import { BugModalComponent } from './components/bug-modal/bug-modal.component';
 import { LoadingCenterComponent } from './components/loading-center/loading-center.component';
+import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component';
+import { ProjectTabsComponent } from './components/project-tabs/project-tabs.component';
+import { ProjectHistoryComponent } from './components/project-history/project-history.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,10 @@ import { LoadingCenterComponent } from './components/loading-center/loading-cent
     DragDropComponent,
     BugCardComponent,
     BugModalComponent,
-    LoadingCenterComponent
+    LoadingCenterComponent,
+    ReportsPageComponent,
+    ProjectTabsComponent,
+    ProjectHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +54,10 @@ import { LoadingCenterComponent } from './components/loading-center/loading-cent
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
