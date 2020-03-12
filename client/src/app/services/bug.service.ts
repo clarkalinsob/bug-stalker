@@ -42,7 +42,7 @@ export class BugService {
       done
      }
      
-    return this.http.post(`${this.api}/drag-drop`, data, httpOptions)
+    return this.http.post(`${this.api}/${projectId}/drag-drop`, data, httpOptions)
   }
 
   getBugRealtime(): Observable<any> {

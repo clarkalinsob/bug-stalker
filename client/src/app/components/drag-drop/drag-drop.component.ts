@@ -28,9 +28,9 @@ export class DragDropComponent implements OnInit {
     this.done = []
     
     this.bugSubscription = bugService.getBugRealtime().subscribe((data: any) => {
-      if (data.event === 'create') this[data.bug.status].push(data.bug)
-      if (data.event === 'delete') this[data.bug.status] = this[data.bug.status].filter(b => b._id != data.bug._id)
-      if (data.event === 'drag-drop') {
+      if (data.event === 'create' && data.projectId === this.projectId) this[data.bug.status].push(data.bug)
+      if (data.event === 'delete' && data.projectId === this.projectId) this[data.bug.status] = this[data.bug.status].filter(b => b._id != data.bug._id)
+      if (data.event === 'drag-drop' && data.projectId === this.projectId) {
         this.pending = data.pending
         this.inProgress = data.inProgress
         this.forReview = data.forReview

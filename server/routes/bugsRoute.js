@@ -24,9 +24,10 @@ const pusher = new Pusher({
 
 // POST *POST* Drag-Drop arrays
 
-router.post('/drag-drop', async (req, res) => {
+router.post('/:projectId/drag-drop', async (req, res) => {
   pusher.trigger('realtime-bugs', 'drag-drop', {
     event: 'drag-drop',
+    projectId: req.params.projectId,
     pending: req.body.pending,
     inProgress: req.body.inProgress,
     forReview: req.body.forReview,
@@ -73,6 +74,7 @@ router.post('/:projectId/', async (req, res) => {
 
     pusher.trigger('realtime-bugs', 'create', {
       event: 'create',
+      projectId: req.params.projectId,
       bug: result
     })
 
@@ -114,6 +116,7 @@ router.delete('/:projectId/:bugId', async (req, res) => {
 
   pusher.trigger('realtime-bugs', 'delete', {
     event: 'delete',
+    projectId: req.params.projectId,
     bug
   })
 
