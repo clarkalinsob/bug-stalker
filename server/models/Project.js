@@ -30,6 +30,16 @@ const logSchema = new Schema({
     object: {
       type: String,
       required: true
+    },
+    objectType: {
+      type: String,
+      enum: ['project', 'bug']
+    },
+    previousState: {
+      type: String
+    },
+    currentState: {
+      type: String
     }
   },
   date: {

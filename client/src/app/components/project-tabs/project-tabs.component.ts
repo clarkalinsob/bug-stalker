@@ -9,13 +9,15 @@ import { Project } from 'src/app/models/project';
 })
 export class ProjectTabsComponent implements OnInit {
   @Input() project: Project
-  
+
+  tabIndex: number
   name: string
   description: string
 
   constructor() {}
 
   ngOnInit() {
+    this.tabIndex = 0
     this.name = this.project.name
     this.description = this.project.description
   }

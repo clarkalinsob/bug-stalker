@@ -64,9 +64,7 @@ router.patch('/:projectId', async (req, res) => {
   if (!project) return res.sendStatus(404)
 
   try {
-    Object.keys(req.body).forEach(key =>
-      req.body[key] === 'log' ? project.logs.push(req.body.log) : (project[key] = req.body[key])
-    )
+    Object.keys(req.body).forEach(key => (project[key] = req.body[key]))
 
     const result = await project.save()
 
@@ -89,6 +87,32 @@ router.delete('/:projectId', async (req, res) => {
   await project.deleteOne()
 
   res.send()
+})
+
+// *** END
+
+// PATCH *UPDATE* Project Logs
+
+router.patch('/:projectId/logs', async (req, res) => {
+  const project = await Project.findById(req.params.projectId)
+
+  if (!project) return res.sendStatus(404)
+
+  try {
+    project.logs.push(req.body.log)
+
+    const result = await project.save()
+
+    pusher.trigger('realtime-projects', 'logs', {
+      event: 'logs',
+      projectId: req.params.projectId,
+      log: req.body.log
+    })
+
+    res.send(result)
+  } catch (e) {
+    res.send(e.message)
+  }
 })
 
 // *** END

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import Pusher from 'pusher-js';
 
 import { Project } from '../models/project'
 
@@ -17,8 +18,22 @@ const httpOptions = {
 })
 export class ProjectService {
   api: string = 'http://localhost:5000/api/v1/projects'
+  realtimeData: Subject<any> = new Subject<any>()
+  pusherClient: Pusher
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const PUSHER_APP_ID = '8b85aee5ce4c8058f871'
+    const PUSHER_APP_CLUSTER = 'ap1'
+
+    this.pusherClient = new Pusher(PUSHER_APP_ID, { cluster: PUSHER_APP_CLUSTER})
+    const channel = this.pusherClient.subscribe('realtime-projects')
+
+    channel.bind('logs', data => this.realtimeData.next(data))
+  }
+
+  getProjectRealtime(): Observable<any> {
+    return this.realtimeData.asObservable()
+  } 
 
   getProjects():Observable<Project[]> {
     return this.http.get<Project[]>(`${this.api}`, httpOptions)
@@ -38,5 +53,9 @@ export class ProjectService {
 
   deleteProject(project: Project):Observable<Project> {
     return this.http.delete<Project>(`${this.api}/${project._id}`, httpOptions)
+  }
+
+  updateLogs(projectId: string, log: any): Observable<any> {
+    return this.http.patch<any>(`${this.api}/${projectId}/logs`, log, httpOptions)
   }
 }

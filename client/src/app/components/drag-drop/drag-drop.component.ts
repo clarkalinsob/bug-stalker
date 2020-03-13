@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
 
+import { AuthService } from 'src/app/auth.service';
 import { BugService } from 'src/app/services/bug.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 import { Bug } from 'src/app/models/bug';
 
@@ -20,8 +22,9 @@ export class DragDropComponent implements OnInit {
   inProgress: Bug[]
   forReview: Bug[]
   done: Bug[]
+  user: any
 
-  constructor (private bugService: BugService) {
+  constructor (private auth: AuthService, private bugService: BugService, private projectService: ProjectService) {
     this.pending = [] 
     this.inProgress =[]
     this.forReview = []
@@ -40,6 +43,9 @@ export class DragDropComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Initialize user
+    this.auth.getUser$().subscribe(user => this.user = user)
+
     // Get all bugs of the project
     this.bugService.getBugs(this.projectId).subscribe(bugs => {
       const pending = bugs.filter(b => b.status === 'pending')
@@ -78,6 +84,24 @@ export class DragDropComponent implements OnInit {
 
   createBug(bug: Bug) {
     this.bugService.createBug(this.projectId, bug).subscribe()
+      const history = {
+        log: {
+          subject: {
+            userId: this.user.sub,
+            name: this.user.name,
+            email: this.user.email,
+            picture: this.user.picture
+          },
+          predicate: {
+            verb: 'created',
+            object: bug.name,
+            objectType: 'bug',
+            currentState: bug.status
+          },
+          date: Date.now()
+        }
+      }
+      this.projectService.updateLogs(this.projectId, history).subscribe()
   }
 
   deleteBug(bug: Bug) {

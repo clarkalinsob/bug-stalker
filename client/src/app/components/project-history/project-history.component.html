@@ -6,14 +6,28 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="history">
         <th *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element"> 
-          <div class="mt-2">
-            <mdb-badge pill="true" color="green" class="mb-2">CREATED</mdb-badge>
-            <p style="margin-bottom: 0">
-              {{ element.name }}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-            </p>
-            <img  *ngIf="auth.userProfile$ | async as profile" src={{profile.picture}} alt="" width="25" class="img-fluid rounded-circle z-depth-0 float-right mb-2">
+        <td mat-cell *matCellDef="let log"> 
+          <div class="mt-1 mb-1">
+            <span class="float-right pt-1">2 days ago</span>
+            <img  src={{log.subject.picture}} alt="" width="30" class="img-fluid rounded-circle z-depth-0 mr-3">
+            <!-- Subject -->
+            <!-- {{ log.subject.name }}  -->
+
+            <!-- Verb -->
+            <mdb-badge pill="true" color="{{log.predicate.verb === 'created' ? 'green' : ''}}">{{ log.predicate.verb }}</mdb-badge>
+            <!-- Object or Info -->
+            <i class="ml-2">{{ log.predicate.object }}</i>
+
+            <!-- Object Type -->
+            {{ log.predicate.objectType === 'project' ? '' : ' under ' }}
+
+            <!-- Previous State -->
+            {{ log.predicate.verb === 'updated' ? 'from ' : ''}}
+            {{ log.predicate.previousState }}
+
+            <!-- Current State -->
+            {{ log.predicate.verb === 'updated' ? 'to ' : ''}}
+            <b>{{ log.predicate.currentState ? log.predicate.currentState : '' }}</b>   
           </div>
         </td>
       </ng-container>
