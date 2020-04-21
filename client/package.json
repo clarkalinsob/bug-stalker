@@ -3,7 +3,7 @@
   "version": "8.10.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --sourceMap=false --host 134.209.98.2 --port 4200",
+    "start": "ng serve --sourceMap=false --host 134.209.98.2 --port 80",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
