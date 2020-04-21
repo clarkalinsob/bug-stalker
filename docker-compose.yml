@@ -3,17 +3,16 @@ version: '3'
 networks:
   bug-stalker-network:
     driver: bridge
+  # client:
+  #   container_name: bug-stalker-client
+  #   restart: always
+  #   build: ./client
+  #   ports:
+  #     - 80:4200
+  #   networks:
+  #     - bug-stalker-network
 
 services:
-  client:
-    container_name: bug-stalker-client
-    restart: always
-    build: ./client
-    ports:
-      - 80:4200
-    networks:
-      - bug-stalker-network
-
   server:
     container_name: bug-stalker-server
     restart: always
