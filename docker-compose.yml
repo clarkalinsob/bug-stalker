@@ -13,10 +13,10 @@ networks:
   #     - bug-stalker-network
 services:
   server:
-  container_name: bug-stalker-server
-  restart: always
-  build: ./server
-  ports:
-    - 5000:5000
-  networks:
-    - bug-stalker-network
+    container_name: bug-stalker-server
+    restart: always
+    build: ./server
+    ports:
+      - 5000:5000
+    networks:
+      - bug-stalker-network
