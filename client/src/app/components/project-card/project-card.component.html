@@ -2,23 +2,20 @@
   <mdb-card-body>
     <mdb-card-title>
       <h5>
-        {{ 
-          project.name.length > 20
-          ? project.name.substring(0, 20) + '...'
-          : project.name 
-        }}
+        {{ project.name }}
       </h5>
     </mdb-card-title>
     <mdb-card-text>
-      {{ 
-        project.description.length > 40 
-        ? project.description.substring(0, 40) + '...' 
-        : project.description 
-      }}
+      {{ project.description }}
     </mdb-card-text>
     <div class="row">
       <div class="col-sm-8">
-        <button [routerLink]="['/projects', project._id]" routerLinkActive="router-link-active" mdbBtn class="float-left btn btn-block btn-brown btn-sm">
+        <button
+          [routerLink]="['/projects', project._id]"
+          routerLinkActive="router-link-active"
+          mdbBtn
+          class="float-left btn btn-block btn-brown btn-sm"
+        >
           Open Project
         </button>
       </div>
@@ -26,7 +23,10 @@
         <a class="relative waves-light float-right mr-0 ml-3 mt-1" (click)="onDelete(project)">
           <mdb-icon fas icon="trash" size="1x" class="dark-grey-text" aria-hidden="true"></mdb-icon>
         </a>
-        <app-project-modal [project]="project" (updateProject)="updateProject($event)"></app-project-modal>
+        <app-project-modal
+          [project]="project"
+          (updateProject)="updateProject($event)"
+        ></app-project-modal>
       </div>
     </div>
   </mdb-card-body>

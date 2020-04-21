@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { CommonModule } from '@angular/common'
 
-import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { BoardPageComponent } from './components/pages/board-page/board-page.component';
+import { HomeComponent } from './components/home/home.component'
+import { DashboardComponent } from './components/dashboard/dashboard.component'
+import { BoardPageComponent } from './components/pages/board-page/board-page.component'
 
-import { AuthGuard } from './auth.guard';
-import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component';
+import { AuthGuard } from './auth.guard'
+import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component'
 
 const routes: Routes = [
   {
@@ -51,21 +51,18 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    redirectTo: '/',
+    redirectTo: '/'
   },
-  { 
+  {
     path: '',
     pathMatch: 'full',
     component: HomeComponent
   }
-];
+]
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
-  ],
+  imports: [CommonModule, RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
