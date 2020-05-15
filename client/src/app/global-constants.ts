@@ -1,3 +1,3 @@
 export class GlobalConstants {
-  public static serverUrl: string = 'http://localhost:5000'
+  public static serverUrl: string = 'http://128.199.247.138/server'
 }
