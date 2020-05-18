@@ -20,7 +20,7 @@ app.use('/api/v1/projects', projectsRoute)
 app.use('/api/v1/bugs', bugsRoute)
 
 mongoose
-  .connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGODB_ATLAS, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB')
     return app.listen(port, () => console.log(`API listening on PORT ${port}`))
