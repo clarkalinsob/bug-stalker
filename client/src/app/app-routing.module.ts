@@ -9,6 +9,9 @@ import { BoardPageComponent } from './components/pages/board-page/board-page.com
 import { AuthGuard } from './auth.guard'
 import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component'
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { InterceptorService } from './services/interceptor.service'
+
 const routes: Routes = [
   {
     path: 'reports',
@@ -63,6 +66,13 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [CommonModule, RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ]
 })
 export class AppRoutingModule {}

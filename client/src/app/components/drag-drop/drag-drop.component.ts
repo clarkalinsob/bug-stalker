@@ -31,7 +31,7 @@ export class DragDropComponent implements OnInit {
     this.forReview = []
     this.done = []
 
-    this.bugSubscription = bugService.getBugRealtime().subscribe((data: any) => {
+    this.bugSubscription = bugService.getBugRealtime$().subscribe((data: any) => {
       if (data.event === 'create' && data.projectId === this.projectId) this[data.bug.status].push(data.bug)
       if (data.event === 'update' && data.projectId === this.projectId)
         this[data.bug.status] = this[data.bug.status].map(b => (b._id === data.bug._id ? data.bug : b))
@@ -51,7 +51,7 @@ export class DragDropComponent implements OnInit {
     this.auth.getUser$().subscribe(user => (this.user = user))
 
     // Get all bugs of the project
-    this.bugService.getBugs(this.projectId).subscribe(bugs => {
+    this.bugService.getBugs$(this.projectId).subscribe(bugs => {
       const pending = bugs.filter(b => b.status === 'pending')
       const inProgress = bugs.filter(b => b.status === 'inProgress')
       const forReview = bugs.filter(b => b.status === 'forReview')
@@ -81,11 +81,11 @@ export class DragDropComponent implements OnInit {
 
       this.createHistoryLogs(this.bug, 'updated')
     }
-    this.bugService.dragDrop(this.projectId, this.pending, this.inProgress, this.forReview, this.done).subscribe()
+    this.bugService.dragDrop$(this.projectId, this.pending, this.inProgress, this.forReview, this.done).subscribe()
   }
 
   createBug(bug: Bug) {
-    this.bugService.createBug(this.projectId, bug).subscribe()
+    this.bugService.createBug$(this.projectId, bug).subscribe()
 
     // Created log
     this.createHistoryLogs(bug, 'created')
@@ -93,7 +93,7 @@ export class DragDropComponent implements OnInit {
 
   deleteBug(bug: Bug) {
     // Delete the bug from the server
-    this.bugService.deleteBug(this.projectId, bug._id).subscribe()
+    this.bugService.deleteBug$(this.projectId, bug._id).subscribe()
 
     // Deleted log
     this.createHistoryLogs(bug, 'deleted')
@@ -120,7 +120,7 @@ export class DragDropComponent implements OnInit {
       }
 
       // Update Bug
-      this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
+      this.bugService.updateBug$(this.projectId, item._id, bug).subscribe()
     })
   }
 
@@ -134,7 +134,7 @@ export class DragDropComponent implements OnInit {
         status
       }
 
-      this.bugService.updateBug(this.projectId, item._id, bug).subscribe()
+      this.bugService.updateBug$(this.projectId, item._id, bug).subscribe()
       indexCount++
     })
 
@@ -161,6 +161,6 @@ export class DragDropComponent implements OnInit {
       }
     }
 
-    this.projectService.updateLogs(this.projectId, history).subscribe()
+    this.projectService.updateLogs$(this.projectId, history).subscribe()
   }
 }

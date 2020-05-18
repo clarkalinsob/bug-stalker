@@ -6,14 +6,14 @@ const pusher = require('../pusher/config')
 
 const Bug = require('../models/Bug')
 
-// router.use(checkJwt(process.env.AUTH0_API_AUDIENCE))
-// router.use((err, _, res, next) => {
-//   if (err.name === 'UnauthorizedError') {
-//     res.status(err.status).send(err.message)
-//     return
-//   }
-//   next()
-// })
+router.use(checkJwt(process.env.AUTH0_API_AUDIENCE))
+router.use((err, _, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(err.status).send(err.message)
+    return
+  }
+  next()
+})
 
 // POST *POST* Drag-Drop arrays
 

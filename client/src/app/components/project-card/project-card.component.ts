@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 
-import { ProjectService } from '../../services/project.service';
+import { ProjectService } from '../../services/project.service'
 import { Project } from '../../models/project'
 
 @Component({
@@ -17,7 +17,7 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit() {}
 
   updateProject(project: Project) {
-    this.projectService.updateProject(project).subscribe(p => this.project = p)
+    this.projectService.updateProject$(project).subscribe(p => (this.project = p))
   }
 
   onDelete(project: Project) {

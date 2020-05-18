@@ -25,7 +25,7 @@ export class ProjectHistoryComponent implements OnInit {
   moment: any = moment
 
   constructor(private auth: AuthService, private projectService: ProjectService) {
-    this.logsSubscription = projectService.getProjectRealtime().subscribe((data: any) => {
+    this.logsSubscription = projectService.getProjectRealtime$().subscribe((data: any) => {
       if (data.event === 'logs' && data.projectId === this.projectId) {
         this.dataSource.data.unshift(data.log)
         this.dataSource.data = [...this.dataSource.data]

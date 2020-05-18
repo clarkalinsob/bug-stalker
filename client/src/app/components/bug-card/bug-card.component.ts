@@ -29,7 +29,7 @@ export class BugCardComponent implements OnInit {
   }
 
   updateBug(bug: Bug) {
-    this.bugService.updateBug(this.projectId, this.bug._id, bug).subscribe(b => (this.bug = b))
+    this.bugService.updateBug$(this.projectId, this.bug._id, bug).subscribe(b => (this.bug = b))
 
     this.createHistoryLogs(bug, 'updated')
   }
@@ -54,6 +54,6 @@ export class BugCardComponent implements OnInit {
       }
     }
 
-    this.projectService.updateLogs(this.projectId, history).subscribe()
+    this.projectService.updateLogs$(this.projectId, history).subscribe()
   }
 }
