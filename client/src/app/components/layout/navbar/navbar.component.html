@@ -1,7 +1,4 @@
-<mdb-navbar
-  SideClass="navbar navbar-expand-lg navbar-dark teal darken-2 sticky-top mb-5"
-  [containerInside]="false"
->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark teal darken-2 sticky-top mb-5" [containerInside]="false">
   <ul class="navbar-nav mr-auto nav-flex-icons align-items-center">
     <li *ngIf="auth.loggedIn" class="nav-item">
       <a [routerLink]="['/dashboard']" class="nav-link waves-light" mdbWavesEffect>
@@ -10,12 +7,7 @@
       </a>
     </li>
     <li *ngIf="auth.loggedIn" class="nav-item">
-      <a
-        href="http://localhost:8080/users"
-        target="_blank"
-        class="nav-link waves-light"
-        mdbWavesEffect
-      >
+      <a href="https://users.clarkalinsob.com" target="_blank" class="nav-link waves-light" mdbWavesEffect>
         <mdb-icon fas icon="users"></mdb-icon>
         Users<span class="sr-only">(current)</span>
       </a>
@@ -26,11 +18,7 @@
   </div>
   <ul class="navbar-nav ml-auto nav-flex-icons align-items-center">
     <li *ngIf="auth.loggedIn" class="nav-item avatar dropdown" dropdown>
-      <a
-        dropdownToggle
-        type="button"
-        class="nav-link dropdown-toggle waves-light pt-0 pb-0 mt-0 mb-0"
-      >
+      <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light pt-0 pb-0 mt-0 mb-0">
         <img
           *ngIf="auth.userProfile$ | async as profile"
           src="{{ profile.picture }}"
@@ -39,11 +27,7 @@
           class="img-fluid rounded-circle z-depth-0 mr-1"
         />
       </a>
-      <div
-        *dropdownMenu
-        class="dropdown-menu dropdown-menu-right dropdown dropdown-primary mt-3"
-        role="menu"
-      >
+      <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary mt-3" role="menu">
         <a class="dropdown-item waves-light" (click)="auth.logout()">Log out</a>
       </div>
     </li>

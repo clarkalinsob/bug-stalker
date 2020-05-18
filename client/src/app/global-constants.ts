@@ -1,3 +1,3 @@
 export class GlobalConstants {
-  public static serverUrl: string = 'https://bugstalker.clarkalinsob.com/server'
+  public static serverUrl: string = 'http://localhost:5000'
 }

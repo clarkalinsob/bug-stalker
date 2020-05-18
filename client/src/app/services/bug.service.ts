@@ -31,17 +31,12 @@ export class BugService {
     const channel = this.pusherClient.subscribe('realtime-bugs')
 
     channel.bind('create', data => this.realtimeData.next(data))
+    channel.bind('update', data => this.realtimeData.next(data))
     channel.bind('delete', data => this.realtimeData.next(data))
     channel.bind('drag-drop', data => this.realtimeData.next(data))
   }
 
-  dragDrop(
-    projectId: any,
-    pending: any,
-    inProgress: any,
-    forReview: any,
-    done: any
-  ): Observable<any> {
+  dragDrop(projectId: any, pending: any, inProgress: any, forReview: any, done: any): Observable<any> {
     const data = {
       projectId,
       pending,

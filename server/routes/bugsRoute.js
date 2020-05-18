@@ -92,6 +92,12 @@ router.patch('/:projectId/:bugId', async (req, res) => {
 
     const result = await bug.save()
 
+    pusher.trigger('realtime-bugs', 'update', {
+      event: 'update',
+      projectId: req.params.projectId,
+      bug: result
+    })
+
     res.send(result)
   } catch (e) {
     res.send(e.message)

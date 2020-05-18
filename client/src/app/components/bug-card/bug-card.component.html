@@ -1,20 +1,18 @@
 <div class="pt-2 pb-2">
   <div class="px-3">
     <a>
-      {{ 
-        bug.name.length > 20
-        ? bug.name.substring(0, 20) + '...'
-        : bug.name 
-      }}
+      {{ bug.name.length > 20 ? bug.name.substring(0, 20) + '...' : bug.name }}
     </a>
   </div>
-  <hr>
+  <hr />
   <div class="row">
     <div class="col-8">
       <a class="float-left pl-3">
-        <mdb-icon fas icon="circle"
-          [ngClass]="{ 
-            'text-danger': bug.status === 'pending' ,
+        <mdb-icon
+          fas
+          icon="circle"
+          [ngClass]="{
+            'text-danger': bug.status === 'pending',
             'text-warning': bug.status === 'inProgress',
             'text-secondary': bug.status === 'forReview',
             'text-success': bug.status === 'done'
