@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project } from '../../models/project';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Project } from '../../models/project'
+import { AuthService } from 'src/app/auth.service'
 
 @Component({
   selector: 'app-project-modal',
@@ -16,22 +17,32 @@ export class ProjectModalComponent implements OnInit {
   error: string
   isValid: boolean
   isUpdate: boolean
+  user: any
 
-  constructor() {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
     this.name = ''
     this.isValid = false
     if (this.project) this.isUpdate = !this.isUpdate
+    this.auth.getUser$().subscribe(user => (this.user = user))
   }
 
   onSubmit() {
-    if (this.name.trim() === '') return this.error = '*Name is required.'
+    if (this.name.trim() === '') return (this.error = '*Name is required.')
+
+    const createdBy = {
+      userId: this.user.sub,
+      name: this.user.name,
+      email: this.user.email,
+      picture: this.user.picture
+    }
 
     const project = {
       name: this.name,
-      description: this.description
-    }  
+      description: this.description,
+      members: [createdBy]
+    }
 
     this.isValid = !this.isValid
 
@@ -40,7 +51,7 @@ export class ProjectModalComponent implements OnInit {
       const updatedProject = Object.assign({}, project, { _id: this.project._id })
       this.updateProject.emit(updatedProject)
     }
-    
+
     // Create Project
     else this.createProject.emit(project)
   }
