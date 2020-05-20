@@ -1,4 +1,5 @@
 const express = require('express')
+const request = require('request')
 const router = express.Router()
 
 const checkJwt = require('../auth/checkJwt')
@@ -110,6 +111,74 @@ router.patch('/:projectId/logs', async (req, res) => {
     })
 
     res.send(result)
+  } catch (e) {
+    res.send(e.message)
+  }
+})
+
+// *** END
+
+// GET *READ* Oauth Token
+
+router.use('/:projectId/members', (req, res, next) => {
+  const options = {
+    method: 'POST',
+    url: `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
+    headers: { 'content-type': 'application/json' },
+    form: {
+      client_id: process.env.AUTH0_M2M_CLIENT_ID,
+      client_secret: process.env.AUTH0_M2M_CLIENT_SECRET,
+      audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
+      grant_type: 'client_credentials'
+    }
+  }
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error)
+
+    const parsedToken = JSON.parse(body)
+    req.user.access_token = parsedToken.access_token
+    next()
+  })
+})
+
+// *** END
+
+// GET *READ* Project Members
+
+router.get('/:projectId/members', (req, res) => {
+  const options = {
+    method: 'GET',
+    url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
+    headers: { authorization: `Bearer ${req.user.access_token}` },
+    json: true
+  }
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error)
+
+    res.send({ users: body })
+  })
+})
+
+// *** END
+
+// PATCH *UPDATE* Project Members
+
+router.patch('/:projectId/members', async (req, res) => {
+  console.log('members')
+  const project = await Project.findById(req.params.projectId)
+
+  if (!project) return res.sendStatus(404)
+
+  try {
+    console.log('req.body', req.body)
+    project.members = req.body
+
+    const result = await project.save()
+
+    console.log(result.members)
+    res.send(result.members)
   } catch (e) {
     res.send(e.message)
   }

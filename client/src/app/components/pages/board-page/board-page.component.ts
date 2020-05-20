@@ -27,4 +27,9 @@ export class BoardPageComponent implements OnInit {
     // Get all bugs of the project
     this.bugService.getBugs$(this.projectId).subscribe(bugs => (this.bugs = bugs))
   }
+
+  updateMembers(members: any[]) {
+    this.project.members = members
+    console.log('event : members ::: ', members)
+  }
 }

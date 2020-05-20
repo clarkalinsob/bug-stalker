@@ -19,6 +19,7 @@
     "jwks-rsa": "^1.7.0",
     "mongoose": "^5.9.2",
     "nodemon": "^2.0.2",
-    "pusher": "^3.0.0"
+    "pusher": "^3.0.0",
+    "request": "^2.88.2"
   }
 }

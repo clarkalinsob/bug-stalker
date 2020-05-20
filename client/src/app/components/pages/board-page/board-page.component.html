@@ -1,9 +1,13 @@
-
 <div *ngIf="project">
   <div class="container mb-5">
+    <app-add-member-modal [projectId]="project._id" [members]="project.members" (updateMembers)="updateMembers($event)"></app-add-member-modal>
+    <ul class="list-group list-group-horizontal float-right mr-2">
+      <li *ngFor="let member of project.members" style="list-style-type: none;">
+        <img *ngIf="member" src="{{ member.picture }}" alt="" width="30" class="img-fluid rounded-circle z-depth-0 mr-1 mt-2" />
+      </li>
+    </ul>
     <h1>{{ project.name }}</h1>
     <p>{{ project.description }}</p>
   </div>
   <app-project-tabs [project]="project"></app-project-tabs>
 </div>
-
