@@ -51,4 +51,12 @@ export class ProjectService {
   updateLogs$(projectId: string, log: any): Observable<any> {
     return this.http.patch<any>(`${this.api}/${projectId}/logs`, log)
   }
+
+  getMembers$(projectId: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/${projectId}/members`)
+  }
+
+  updateMembers$(projectId: string, members: any[]): Observable<any> {
+    return this.http.patch<any>(`${this.api}/${projectId}/members`, members)
+  }
 }

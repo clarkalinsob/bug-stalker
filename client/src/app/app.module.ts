@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MDBBootstrapModule } from 'angular-bootstrap-md'
-import { FormsModule } from '@angular/forms'
+import { MDBBootstrapModule, CheckboxModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module'
 import { HttpClientModule } from '@angular/common/http'
 import { MatTabsModule } from '@angular/material/tabs'
@@ -26,6 +26,7 @@ import { LoadingCenterComponent } from './components/loading-center/loading-cent
 import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component'
 import { ProjectTabsComponent } from './components/project-tabs/project-tabs.component'
 import { ProjectHistoryComponent } from './components/project-history/project-history.component'
+import { AddMemberModalComponent } from './components/add-member-modal/add-member-modal.component'
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProjectHistoryComponent } from './components/project-history/project-hi
     LoadingCenterComponent,
     ReportsPageComponent,
     ProjectTabsComponent,
-    ProjectHistoryComponent
+    ProjectHistoryComponent,
+    AddMemberModalComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,11 @@ import { ProjectHistoryComponent } from './components/project-history/project-hi
     DragDropModule,
     MatTabsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    CheckboxModule,
+    WavesModule,
+    ButtonsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
