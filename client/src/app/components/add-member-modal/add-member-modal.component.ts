@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { FormGroup, FormControl } from '@angular/forms'
 import { ProjectService } from 'src/app/services/project.service'
 
 @Component({
@@ -12,11 +11,10 @@ export class AddMemberModalComponent implements OnInit {
   @Input() members: any[]
   @Output() updateMembers: EventEmitter<any[]> = new EventEmitter()
 
-  mappedUsers: any[]
-  loading: boolean = true
+  loading: boolean
   isValid: boolean
-  templatetrue: boolean = true
-  templatefalse: boolean = false
+  mappedUsers: any[]
+  createdBy: any
 
   constructor(private projectService: ProjectService) {}
 
@@ -29,6 +27,8 @@ export class AddMemberModalComponent implements OnInit {
 
     this.loading = true
     this.mappedUsers = []
+    this.createdBy = this.members[0]
+
     this.projectService.getMembers$(this.projectId).subscribe(data => {
       data.users.forEach(user => {
         this.mappedUsers.push({
@@ -36,11 +36,11 @@ export class AddMemberModalComponent implements OnInit {
           name: user.name,
           email: user.email,
           picture: user.picture,
-          checked: this.members.filter(m => m.userId === user.user_id).length > 0 ? true : false
+          checked: this.members.filter(m => m.userId === user.user_id).length > 0 ? true : false,
+          disabled: this.createdBy.userId === user.user_id ? true : false
         })
       })
 
-      console.log('mapped', this.mappedUsers)
       this.loading = false
     })
   }
@@ -48,9 +48,7 @@ export class AddMemberModalComponent implements OnInit {
   onSubmit() {
     const selectedUsers = this.mappedUsers.filter(user => user.checked)
 
-    this.projectService.updateMembers$(this.projectId, selectedUsers).subscribe(members => {
-      this.updateMembers.emit(members)
-    })
+    this.updateMembers.emit(selectedUsers)
 
     this.isValid = !this.isValid
   }

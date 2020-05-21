@@ -7,7 +7,11 @@
       </li>
     </ul>
     <h1>{{ project.name }}</h1>
-    <p>{{ project.description }}</p>
+    <div row>
+      <div class="col-lg-9">
+        <p class="mt-4" style="text-align: justify;">{{ project.description }}</p>
+      </div>
+    </div>
   </div>
-  <app-project-tabs [project]="project"></app-project-tabs>
+  <app-project-tabs [project]="project" (updateProjectDetails)="updateProjectDetails($event)"></app-project-tabs>
 </div>

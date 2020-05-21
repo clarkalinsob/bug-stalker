@@ -28,8 +28,11 @@ export class BoardPageComponent implements OnInit {
     this.bugService.getBugs$(this.projectId).subscribe(bugs => (this.bugs = bugs))
   }
 
+  updateProjectDetails(project: Project) {
+    this.projectService.updateProject$(project).subscribe(proj => (this.project = proj))
+  }
+
   updateMembers(members: any[]) {
-    this.project.members = members
-    console.log('event : members ::: ', members)
+    this.projectService.updateMembers$(this.projectId, members).subscribe(mem => (this.project.members = mem))
   }
 }

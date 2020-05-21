@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 
-import { Project } from 'src/app/models/project';
+import { Project } from 'src/app/models/project'
 
 @Component({
   selector: 'app-project-tabs',
@@ -9,6 +9,7 @@ import { Project } from 'src/app/models/project';
 })
 export class ProjectTabsComponent implements OnInit {
   @Input() project: Project
+  @Output() updateProjectDetails: EventEmitter<Project> = new EventEmitter()
 
   tabIndex: number
   name: string
@@ -22,4 +23,13 @@ export class ProjectTabsComponent implements OnInit {
     this.description = this.project.description
   }
 
+  onSaveChanges() {
+    const updatedProject = {
+      _id: this.project._id,
+      name: this.name,
+      description: this.description
+    }
+
+    this.updateProjectDetails.emit(updatedProject)
+  }
 }
