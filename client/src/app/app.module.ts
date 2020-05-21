@@ -26,7 +26,8 @@ import { LoadingCenterComponent } from './components/loading-center/loading-cent
 import { ReportsPageComponent } from './components/pages/reports-page/reports-page.component'
 import { ProjectTabsComponent } from './components/project-tabs/project-tabs.component'
 import { ProjectHistoryComponent } from './components/project-history/project-history.component'
-import { AddMemberModalComponent } from './components/add-member-modal/add-member-modal.component'
+import { AddMemberModalComponent } from './components/add-member-modal/add-member-modal.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AddMemberModalComponent } from './components/add-member-modal/add-membe
     ReportsPageComponent,
     ProjectTabsComponent,
     ProjectHistoryComponent,
-    AddMemberModalComponent
+    AddMemberModalComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<a *ngIf="type === 'project'" class="relative waves-light float-right mr-0 ml-3 mt-1" (click)="basicModal.show()">
+  <mdb-icon fas icon="trash" size="1x" class="dark-grey-text" aria-hidden="true"></mdb-icon>
+</a>
+
+<a *ngIf="type === 'bug'" class="waves-light float-right pr-3">
+  <mdb-icon fas icon="trash" size="1x" class="dark-grey-text" aria-hidden="true" (click)="basicModal.show()"></mdb-icon>
+</a>
+
+<div
+  mdbModal
+  #basicModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+  (open)="onOpen($event)"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Delete</h4>
+      </div>
+      <div class="modal-body">Are you sure to delete "{{ targetObj.name }}"</div>
+      {{ isValid ? basicModal.hide() : '' }}
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="blue-grey" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>
+          Cancel
+        </button>
+        <button type="button" mdbBtn color="blue" class="relative waves-light" mdbWavesEffect (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

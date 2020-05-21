@@ -20,7 +20,7 @@ export class ProjectCardComponent implements OnInit {
     this.projectService.updateProject$(project).subscribe(p => (this.project = p))
   }
 
-  onDelete(project: Project) {
+  deleteCard(project: Project) {
     this.deleteProject.emit(project)
   }
 }
