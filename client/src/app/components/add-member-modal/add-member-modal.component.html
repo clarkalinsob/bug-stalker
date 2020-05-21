@@ -24,7 +24,7 @@
         </div>
         <div class="modal-body">
           <div *ngFor="let user of mappedUsers" class="mb-2">
-            <mdb-checkbox name="template{{ user.checked }}" [default]="true" [(ngModel)]="user.checked" [checked]="user.checked">
+            <mdb-checkbox [name]="user.userId" [default]="true" [disabled]="user.disabled" [checked]="user.checked" [(ngModel)]="user.checked">
               <img *ngIf="user" src="{{ user.picture }}" alt="" width="27" class="img-fluid rounded-circle z-depth-0 mr-1" />
               {{ user.email }}
             </mdb-checkbox>

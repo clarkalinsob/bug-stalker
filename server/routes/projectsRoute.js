@@ -1,5 +1,6 @@
 const express = require('express')
 const request = require('request')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const checkJwt = require('../auth/checkJwt')
@@ -16,11 +17,17 @@ router.use((err, _, res, next) => {
   }
   next()
 })
+router.use((req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1]
+  req.userId = jwt.decode(token).sub
+
+  next()
+})
 
 // GET *READ* Multiple Projects
 
 router.get('/', async (req, res) => {
-  const projects = await Project.find().sort({ updatedAt: -1 })
+  const projects = await Project.find({ 'members.userId': req.userId }).sort({ updatedAt: -1 })
 
   if (projects.length > 0) res.send(projects)
 })
@@ -31,8 +38,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:projectId', async (req, res) => {
   const project = await Project.findById(req.params.projectId)
-
   if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
 
   res.send(project)
 })
@@ -61,8 +70,10 @@ router.post('/', async (req, res) => {
 
 router.patch('/:projectId', async (req, res) => {
   const project = await Project.findById(req.params.projectId)
-
   if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
 
   try {
     Object.keys(req.body).forEach(key => (project[key] = req.body[key]))
@@ -81,8 +92,10 @@ router.patch('/:projectId', async (req, res) => {
 
 router.delete('/:projectId', async (req, res) => {
   const project = await Project.findById(req.params.projectId)
-
   if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
 
   await Bug.deleteMany({ projectId: req.params.projectId })
   await project.deleteOne()
@@ -96,8 +109,10 @@ router.delete('/:projectId', async (req, res) => {
 
 router.patch('/:projectId/logs', async (req, res) => {
   const project = await Project.findById(req.params.projectId)
-
   if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
 
   try {
     project.logs.push(req.body.log)
@@ -120,7 +135,13 @@ router.patch('/:projectId/logs', async (req, res) => {
 
 // GET *READ* Oauth Token
 
-router.use('/:projectId/members', (req, res, next) => {
+router.use('/:projectId/members', async (req, res, next) => {
+  const project = await Project.findById(req.params.projectId)
+  if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
+
   const options = {
     method: 'POST',
     url: `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
@@ -146,7 +167,13 @@ router.use('/:projectId/members', (req, res, next) => {
 
 // GET *READ* Project Members
 
-router.get('/:projectId/members', (req, res) => {
+router.get('/:projectId/members', async (req, res) => {
+  const project = await Project.findById(req.params.projectId)
+  if (!project) return res.sendStatus(404)
+
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
+
   const options = {
     method: 'GET',
     url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
@@ -166,18 +193,17 @@ router.get('/:projectId/members', (req, res) => {
 // PATCH *UPDATE* Project Members
 
 router.patch('/:projectId/members', async (req, res) => {
-  console.log('members')
   const project = await Project.findById(req.params.projectId)
-
   if (!project) return res.sendStatus(404)
 
+  const isAuthorized = project.members.find(element => element.userId === req.userId)
+  if (!isAuthorized) return res.sendStatus(401)
+
   try {
-    console.log('req.body', req.body)
     project.members = req.body
 
     const result = await project.save()
 
-    console.log(result.members)
     res.send(result.members)
   } catch (e) {
     res.send(e.message)

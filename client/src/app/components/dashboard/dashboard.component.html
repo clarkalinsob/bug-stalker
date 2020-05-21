@@ -3,7 +3,7 @@
     <div class="col-4">
       <mdb-card class="testimonial-card" *ngIf="auth.userProfile$ | async as profile">
         <div class="card-up indigo lighten-1"></div>
-        <div class="avatar mx-auto pt-3">
+        <div class="avatar mx-auto pt-4">
           <img src="{{ profile.picture }}" width="100" class="rounded-circle" />
         </div>
         <mdb-card-body>
@@ -14,11 +14,11 @@
             <mdb-icon fas icon="envelope"></mdb-icon>
             {{ profile.email }}
           </mdb-card-text>
-          <hr />
+          <!-- <hr />
           <p>
             <mdb-icon fas icon="quote-left"></mdb-icon>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci
-          </p>
+          </p> -->
         </mdb-card-body>
       </mdb-card>
     </div>
