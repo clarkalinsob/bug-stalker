@@ -7,7 +7,16 @@
   <mdb-icon fas icon="edit" size="1x" class="dark-grey-text" aria-hidden="true"></mdb-icon>
 </a>
 
-<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" (open)="onOpen($event)" aria-hidden="true">
+<div
+  mdbModal
+  #basicModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+  (open)="onOpen($event)"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form #project="ngForm" (ngSubmit)="onSubmit()" validate>
@@ -19,11 +28,19 @@
         </div>
         <div class="modal-body">
           <div class="md-form">
-            <input mdbInput required type="text" id="form1" class="form-control" name="name" [(ngModel)]="name">
+            <input mdbInput required type="text" id="form1" class="form-control" name="name" [(ngModel)]="name" />
             <label for="form1" class="">*Name</label>
           </div>
           <div class="md-form">
-            <textarea mdbInput type="text" id="form7" class="md-textarea form-control" rows="5" name="description" [(ngModel)]="description"></textarea>
+            <textarea
+              mdbInput
+              type="text"
+              id="form7"
+              class="md-textarea form-control"
+              rows="5"
+              name="description"
+              [(ngModel)]="description"
+            ></textarea>
             <label for="form7">Description</label>
           </div>
           <div *ngIf="error" class="alert alert-danger" role="alert">
@@ -32,7 +49,9 @@
           {{ isValid ? basicModal.hide() : '' }}
         </div>
         <div class="modal-footer">
-          <button type="button" mdbBtn color="blue-grey" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Cancel</button>
+          <button type="button" mdbBtn color="blue-grey" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>
+            Cancel
+          </button>
           <button type="submit" mdbBtn color="blue" class="relative waves-light" mdbWavesEffect>Save</button>
         </div>
       </form>

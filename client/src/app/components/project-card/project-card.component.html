@@ -20,13 +20,8 @@
         </button>
       </div>
       <div class="col-sm-4">
-        <a class="relative waves-light float-right mr-0 ml-3 mt-1" (click)="onDelete(project)">
-          <mdb-icon fas icon="trash" size="1x" class="dark-grey-text" aria-hidden="true"></mdb-icon>
-        </a>
-        <app-project-modal
-          [project]="project"
-          (updateProject)="updateProject($event)"
-        ></app-project-modal>
+        <app-delete-modal [type]="'project'" [targetObj]="project" (deleteCard)="deleteCard($event)"></app-delete-modal>
+        <app-project-modal [project]="project" (updateProject)="updateProject($event)"></app-project-modal>
       </div>
     </div>
   </mdb-card-body>

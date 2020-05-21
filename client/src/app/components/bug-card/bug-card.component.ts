@@ -24,8 +24,8 @@ export class BugCardComponent implements OnInit {
     this.auth.getUser$().subscribe(user => (this.user = user))
   }
 
-  onDelete() {
-    this.deleteBug.emit(this.bug)
+  deleteCard(bug: Bug) {
+    this.deleteBug.emit(bug)
   }
 
   updateBug(bug: Bug) {
