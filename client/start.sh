@@ -1,1 +1,1 @@
-serve -s dist/bug-stalker
+serve -s dist/mdb-angular-free
