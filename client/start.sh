@@ -1,1 +1,1 @@
-npm start
+serve -s dist/bug-stalker
