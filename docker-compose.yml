@@ -18,6 +18,6 @@ services:
     restart: always
     build: ./server
     ports:
-      - 5000:5000
+      - 5001:5001
     networks:
       - bug-stalker-network
